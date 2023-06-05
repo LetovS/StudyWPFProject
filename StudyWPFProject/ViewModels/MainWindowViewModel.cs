@@ -1,4 +1,5 @@
-﻿using StudyWPFProject.Infrastructure.Commands;
+﻿using CommunityToolkit.Mvvm.Input;
+using StudyWPFProject.Infrastructure.Commands;
 using StudyWPFProject.Models;
 using StudyWPFProject.Services;
 using StudyWPFProject.ViewModels.Base;
@@ -43,7 +44,7 @@ namespace StudyWPFProject.ViewModels
         public int SelectedIndexAddNewTeacherByService { get => _SelectedIndexAddNewTeacherByService; set => Set(ref _SelectedIndexAddNewTeacherByService, value); }
 
         public Teacher NewTeacher { get; set; } = new Teacher();
-        private void GetTop3Services()
+        private void ExecuteGetTop3UsingServices()
         {
             TopServices = new List<TopServiceItem>(
                 Teachers.GroupBy(p => p.Service!.Name)
@@ -58,44 +59,38 @@ namespace StudyWPFProject.ViewModels
                         .Take(3)
                         .ToList());
         }
+        private void ExecuteAddNewTeacherInCollection()
+        {
+            if (!Teachers.Contains(NewTeacher))
+            {
+                Teachers.Add(NewTeacher);
+                NewTeacher = null!;
+                SelectedIndexAddNewTeacherByInstitute = -1;
+                SelectedIndexAddNewTeacherByService = -1;
+            }
+        }
+
         public MainWindowViewModel()
         {
             Teachers.Add(new Teacher() { FullName = "Sergey", Institute = new Institute() { Name = "ГИ" }, Service = new Service() { Name = "Discord" } });
 
             #region Init Commands
-            AddNewTeacherCommand = new LambdaCommand(ExecuteAddNewTeacherCommand, CanExecuteAddNewTeacherCommand);
-            GetTopServicesCommand = new LambdaCommand(ExecuteGetTopServicesCommand, CanExecuteGetTopServicesCommand);
+            AddNewTeacherCommand = new RelayCommand(ExecuteAddNewTeacherInCollection, () => true);
+            GetTopServicesCommand = new RelayCommand(ExecuteGetTop3UsingServices, () => Teachers.Count > 0);
             #endregion
 
         }
 
-        #region Commands
-        public ICommand AddNewTeacherCommand { get; }
-        private bool CanExecuteAddNewTeacherCommand(object arg)
+        private bool CanExecuteAddNewTeacherInCollection()
         {
-            if (string.IsNullOrEmpty(NewTeacher.FullName) || NewTeacher.Institute is null || NewTeacher.Service is null) return false;
+            if (string.IsNullOrWhiteSpace(NewTeacher.FullName) || NewTeacher.Institute is null || NewTeacher.Service is null) return false;
             return true;
         }
-        private void ExecuteAddNewTeacherCommand(object obj)
-        {
-            if (obj is Teacher teacher)
-            {
-                if (!Teachers.Contains(teacher))
-                {
-                    Teachers.Add(NewTeacher);
-                    NewTeacher = new Teacher();
-                    OnPropertyChanged(nameof(NewTeacher));
-                    SelectedIndexAddNewTeacherByInstitute = -1;
-                    SelectedIndexAddNewTeacherByService = -1;
-                }
-            }
-            
-        }
 
-        //public RelayCommand GetTopServicesCommand { get; set => GetTop3Services(); }
-        public ICommand GetTopServicesCommand { get; }
-        private bool CanExecuteGetTopServicesCommand(object arg) => Teachers.Count > 0;
-        private void ExecuteGetTopServicesCommand(object obj) => GetTop3Services();
+        #region Commands
+        public RelayCommand AddNewTeacherCommand { get;  }
+        public RelayCommand GetTopServicesCommand { get;  }
+        
         #endregion
 
     }

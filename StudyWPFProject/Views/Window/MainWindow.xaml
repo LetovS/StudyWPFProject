@@ -48,6 +48,7 @@
                                                Grid.Column="1"
                                                Grid.RowSpan="2"
                                                TextAlignment="Center"
+                                               VerticalAlignment="Center"
                                                Text="{Binding Service.Name}"
                                                Background="{Binding Service.Name, Converter={StaticResource ServiceToColorBackgroundConverter}}"/>
                                     
