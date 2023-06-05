@@ -75,10 +75,10 @@ namespace StudyWPFProject.ViewModels
             Teachers.Add(new Teacher() { FullName = "Sergey", Institute = new Institute() { Name = "ГИ" }, Service = new Service() { Name = "Discord" } });
 
             #region Init Commands
-            AddNewTeacherCommand = new RelayCommand(ExecuteAddNewTeacherInCollection, () => true);
+            AddNewTeacherCommand = new RelayCommand(ExecuteAddNewTeacherInCollection, CanExecuteAddNewTeacherInCollection);
             GetTopServicesCommand = new RelayCommand(ExecuteGetTop3UsingServices, () => Teachers.Count > 0);
             #endregion
-
+            
         }
 
         private bool CanExecuteAddNewTeacherInCollection()
