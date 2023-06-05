@@ -1,5 +1,4 @@
-﻿using GalaSoft.MvvmLight.Command;
-using StudyWPFProject.Infrastructure.Commands;
+﻿using StudyWPFProject.Infrastructure.Commands;
 using StudyWPFProject.Models;
 using StudyWPFProject.Services;
 using StudyWPFProject.ViewModels.Base;
@@ -17,21 +16,17 @@ namespace StudyWPFProject.ViewModels
         private string _Title = "My app";
         public string Title { get => _Title; set => Set(ref _Title, value); }
 
-
-        private Teacher _SelectedTeacher;
-        public Teacher SelectedTeacher { get => _SelectedTeacher; set => Set(ref _SelectedTeacher, value); }
-
         public ObservableCollection<Teacher> Teachers { get; set; } = new ObservableCollection<Teacher>();
 
         #region Заглушки
-        public List<Institute> Institutes = new List<Institute>()
+        public List<Institute> Institutes = new ()
         {
             new Institute(){Name = "ИКИТ"},
             new Institute(){Name = "ГИ"},
             new Institute(){Name = "ИППС"},
             new Institute(){Name = "ИУБП"}
         };
-        public List<Service> Services = new List<Service>()
+        public List<Service> Services = new ()
         {
             new Service(){Name = "Discord"},
             new Service(){Name = "Zoom"},
@@ -39,8 +34,9 @@ namespace StudyWPFProject.ViewModels
         };
         #endregion
 
-        private List<TopServiceItem> _TopServices;
+        private List<TopServiceItem> _TopServices = new ();
         public List<TopServiceItem>  TopServices { get => _TopServices; set => Set(ref _TopServices, value); }
+
         public Teacher NewTeacher { get; set; } = new Teacher();
         private void GetTop3Services()
         {
@@ -49,7 +45,7 @@ namespace StudyWPFProject.ViewModels
                         .Select
                             (p => new TopServiceItem
                                 {
-                                    ServiceName = p.Key.Name,
+                                    ServiceName = p.Key!.Name,
                                     CountOfUsing = p.Count()
                                 }
                             )
