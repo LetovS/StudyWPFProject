@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StudyWPFProject.Models
 {
-    internal class Teacher
+    internal class Teacher //: IDataErrorInfo
     {
         public string? FullName { get; set; }
         public Institute? Institute { get; set; }
