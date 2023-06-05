@@ -8,8 +8,8 @@ namespace StudyWPFProject.Models
 {
     internal class Teacher
     {
-        public string FullName { get; set; }
-        public Institute Institute { get; set; }
-        public Service Service { get; set; }
+        public string? FullName { get; set; }
+        public Institute? Institute { get; set; }
+        public Service? Service { get; set; }
     }
 }

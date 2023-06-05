@@ -8,6 +8,6 @@ namespace StudyWPFProject.Models
 {
     internal class Institute
     {
-        public string Name { get; set; }
+        public string? Name { get; set; }
     }
 }
