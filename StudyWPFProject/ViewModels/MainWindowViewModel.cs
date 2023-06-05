@@ -67,7 +67,7 @@ namespace StudyWPFProject.ViewModels
         #region Commands
         public RelayCommand AddNewTeacherCommand { get; init}
 
-        public RelayCommand GetTopServicesCommand { get; init}
+        public RelayCommand GetTopServicesCommand { get; set => GetTop3Services(); }
 
         #endregion
 
