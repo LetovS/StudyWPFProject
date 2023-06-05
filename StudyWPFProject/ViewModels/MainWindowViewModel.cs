@@ -19,14 +19,14 @@ namespace StudyWPFProject.ViewModels
         public ObservableCollection<Teacher> Teachers { get; set; } = new ObservableCollection<Teacher>();
 
         #region Заглушки
-        public List<Institute> Institutes = new ()
+        public List<Institute> Institutes { get; set; } = new()
         {
             new Institute(){Name = "ИКИТ"},
             new Institute(){Name = "ГИ"},
             new Institute(){Name = "ИППС"},
             new Institute(){Name = "ИУБП"}
         };
-        public List<Service> Services = new ()
+        public List<Service> Services { get; set; } = new ()
         {
             new Service(){Name = "Discord"},
             new Service(){Name = "Zoom"},
@@ -37,15 +37,20 @@ namespace StudyWPFProject.ViewModels
         private List<TopServiceItem> _TopServices = new ();
         public List<TopServiceItem>  TopServices { get => _TopServices; set => Set(ref _TopServices, value); }
 
+        private int _SelectedIndexAddNewTeacherByInstitute = -1;
+        public int SelectedIndexAddNewTeacherByInstitute { get => _SelectedIndexAddNewTeacherByInstitute; set => Set(ref _SelectedIndexAddNewTeacherByInstitute, value); }
+        private int _SelectedIndexAddNewTeacherByService = -1;
+        public int SelectedIndexAddNewTeacherByService { get => _SelectedIndexAddNewTeacherByService; set => Set(ref _SelectedIndexAddNewTeacherByService, value); }
+
         public Teacher NewTeacher { get; set; } = new Teacher();
         private void GetTop3Services()
         {
             TopServices = new List<TopServiceItem>(
-                Teachers.GroupBy(p => p.Service)
+                Teachers.GroupBy(p => p.Service!.Name)
                         .Select
                             (p => new TopServiceItem
                                 {
-                                    ServiceName = p.Key!.Name,
+                                    ServiceName = p.Key,
                                     CountOfUsing = p.Count()
                                 }
                             )
@@ -66,10 +71,20 @@ namespace StudyWPFProject.ViewModels
 
         #region Commands
         public ICommand AddNewTeacherCommand { get; }
-        private bool CanExecuteAddNewTeacherCommand(object arg) => true;
+        private bool CanExecuteAddNewTeacherCommand(object arg)
+        {
+            if (string.IsNullOrEmpty(NewTeacher.FullName) || NewTeacher.Institute is null || NewTeacher.Service is null) return false;
+            return true;
+        }
         private void ExecuteAddNewTeacherCommand(object obj)
         {
-            throw new NotImplementedException();
+            if (!Teachers.Contains(NewTeacher))
+            {
+                Teachers.Add(NewTeacher);
+                NewTeacher = new Teacher();
+                SelectedIndexAddNewTeacherByInstitute = -1;
+                SelectedIndexAddNewTeacherByService = -1;
+            }
         }
 
         //public RelayCommand GetTopServicesCommand { get; set => GetTop3Services(); }
