@@ -1,7 +1,9 @@
 ﻿using GalaSoft.MvvmLight.Command;
+using StudyWPFProject.Infrastructure.Commands;
 using StudyWPFProject.Models;
 using StudyWPFProject.Services;
 using StudyWPFProject.ViewModels.Base;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -19,8 +21,9 @@ namespace StudyWPFProject.ViewModels
         private Teacher _SelectedTeacher;
         public Teacher SelectedTeacher { get => _SelectedTeacher; set => Set(ref _SelectedTeacher, value); }
 
-        private ObservableCollection<Teacher> Teachers { get; set; } = new ObservableCollection<Teacher>();
+        public ObservableCollection<Teacher> Teachers { get; set; } = new ObservableCollection<Teacher>();
 
+        #region Заглушки
         public List<Institute> Institutes = new List<Institute>()
         {
             new Institute(){Name = "ИКИТ"},
@@ -34,6 +37,7 @@ namespace StudyWPFProject.ViewModels
             new Service(){Name = "Zoom"},
             new Service(){Name = "WebinarSFU"}
         };
+        #endregion
 
         private List<TopServiceItem> _TopServices;
         public List<TopServiceItem>  TopServices { get => _TopServices; set => Set(ref _TopServices, value); }
@@ -53,11 +57,11 @@ namespace StudyWPFProject.ViewModels
                         .Take(3)
                         .ToList());
         }
-
         public MainWindowViewModel()
         {
             Teachers.Add(new Teacher() { FullName = "Sergey", Institute = new Institute() { Name = "ГИ" }, Service = new Service() { Name = "Discord" } });
-
+            AddNewTeacherCommand = new LambdaCommand(ExecuteAddNewTeacherCommand, CanExecuteAddNewTeacherCommand);
+            GetTopServicesCommand = new LambdaCommand(ExecuteGetTopServicesCommand, CanExecuteGetTopServicesCommand);
             #region Init Commands
 
             #endregion
@@ -65,10 +69,17 @@ namespace StudyWPFProject.ViewModels
         }
 
         #region Commands
-        public RelayCommand AddNewTeacherCommand { get; init; }
+        public ICommand AddNewTeacherCommand { get; }
+        private bool CanExecuteAddNewTeacherCommand(object arg) => true;
+        private void ExecuteAddNewTeacherCommand(object obj)
+        {
+            throw new NotImplementedException();
+        }
 
         //public RelayCommand GetTopServicesCommand { get; set => GetTop3Services(); }
-
+        public ICommand GetTopServicesCommand { get; }
+        private bool CanExecuteGetTopServicesCommand(object arg) => true;
+        private void ExecuteGetTopServicesCommand(object obj) => GetTop3Services();
         #endregion
 
     }
