@@ -61,10 +61,10 @@ namespace StudyWPFProject.ViewModels
         public MainWindowViewModel()
         {
             Teachers.Add(new Teacher() { FullName = "Sergey", Institute = new Institute() { Name = "ГИ" }, Service = new Service() { Name = "Discord" } });
+
+            #region Init Commands
             AddNewTeacherCommand = new LambdaCommand(ExecuteAddNewTeacherCommand, CanExecuteAddNewTeacherCommand);
             GetTopServicesCommand = new LambdaCommand(ExecuteGetTopServicesCommand, CanExecuteGetTopServicesCommand);
-            #region Init Commands
-
             #endregion
 
         }
@@ -94,7 +94,7 @@ namespace StudyWPFProject.ViewModels
 
         //public RelayCommand GetTopServicesCommand { get; set => GetTop3Services(); }
         public ICommand GetTopServicesCommand { get; }
-        private bool CanExecuteGetTopServicesCommand(object arg) => true;
+        private bool CanExecuteGetTopServicesCommand(object arg) => Teachers.Count > 0;
         private void ExecuteGetTopServicesCommand(object obj) => GetTop3Services();
         #endregion
 
