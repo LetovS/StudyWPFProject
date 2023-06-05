@@ -25,7 +25,7 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="40"/>
                 </Grid.RowDefinitions>
-                <ListView Grid.Row="0" BorderThickness="1" BorderBrush="Green" Margin="2">
+                <ListView Grid.Row="0" BorderThickness="1" BorderBrush="Green" Margin="2" DataContext="{Binding Teachers}" SelectedItem="{Binding SelectedTeacher}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Border Margin="2"
@@ -85,13 +85,14 @@
                     
                     <TextBox Grid.Row="0" Grid.Column="1" 
                            VerticalAlignment="Center" HorizontalAlignment="Stretch" MaxHeight="27"
-                             Margin="5,0" BorderThickness="2" BorderBrush="Green"/>
-                    <ComboBox Grid.Row="1" Grid.Column="1" 
+                             Margin="5,0" BorderThickness="2" BorderBrush="Green"
+                             Text="{Binding NewTeacher.FullName}"/>
+                    <ComboBox Grid.Row="1" Grid.Column="1"  ItemsSource="{Binding Institutes}" SelectedItem="{Binding NewTeacher.Institute}"
                            VerticalAlignment="Center" HorizontalAlignment="Stretch" MaxHeight="27"
-                             Margin="5,0" BorderThickness="2" BorderBrush="Green"/>
-                    <ComboBox Grid.Row="2" Grid.Column="1" 
+                             Margin="5,0" BorderThickness="2" BorderBrush="Green" DisplayMemberPath="Name"/>
+                    <ComboBox Grid.Row="2" Grid.Column="1"  ItemsSource="{Binding Services}" SelectedItem="{Binding NewTeacher.Service}"
                            VerticalAlignment="Center" HorizontalAlignment="Stretch" MaxHeight="27"
-                             Margin="5,0" BorderThickness="2" BorderBrush="Green"/>
+                             Margin="5,0" BorderThickness="2" BorderBrush="Green" DisplayMemberPath="Name"/>
                     <Button Grid.Column="0" Grid.Row="3" Content="Add" Margin="2"/>
                 </Grid>
             </GroupBox>
