@@ -97,7 +97,26 @@
                 </Grid>
             </GroupBox>
             <GroupBox Grid.Row="1" Header="Top 3" BorderThickness="1" BorderBrush="Blue" Margin="3">
-                
+                <ListView ItemsSource="{Binding TopServices}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderThickness="2" BorderBrush="Green" HorizontalAlignment="Stretch">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Service name: "/>
+                                    <TextBlock Grid.Column="1" Text="{Binding ServiceName}" HorizontalAlignment="Center" FontWeight="Bold"/>
+                                    <TextBlock Grid.Column="2" Text=" users count: "/>
+                                    <TextBlock Grid.Column="3" Text="{Binding CountOfUsing}" HorizontalAlignment="Center" FontWeight="Bold"/>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </GroupBox>
         </Grid>
     </Grid>
