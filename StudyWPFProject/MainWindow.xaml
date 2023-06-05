@@ -3,9 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:StudyWPFProject"
+        xmlns:l="clr-namespace:StudyWPFProject"
+        xmlns:vm="clr-namespace:StudyWPFProject.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="{Binding Title}" Height="450" Width="800">
+    <Window.DataContext>
+        <vm:MainWindowViewModel/>
+    </Window.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -18,7 +22,35 @@
                     <RowDefinition Height="40"/>
                 </Grid.RowDefinitions>
                 <ListView Grid.Row="0" BorderThickness="1" BorderBrush="Green" Margin="2">
-                    
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Margin="2"
+                                    BorderThickness="1"
+                                    BorderBrush="SteelBlue"
+                                    CornerRadius="4"
+                                    Width="180">
+                                <Grid Margin="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock FontWeight="Bold" Text="{Binding FullName}"/>
+                                    <TextBlock Grid.Row="1" Text="{Binding Institute.Name}"/>
+                                    <TextBlock Grid.Row="0"
+                                               Grid.Column="1"
+                                               Grid.RowSpan="2"
+                                               TextAlignment="Center"
+                                               Text="{Binding Service.Name}"
+                                               Background="{Binding Service.Name, Converter={StaticResource ServiceToColorBackgroundConverter}}"/>
+                                    
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
                 </ListView>
                 <Button Grid.Row="1" Content="Get top" BorderThickness="1" BorderBrush="Blue" Margin="2"/>
             </Grid>
@@ -28,8 +60,36 @@
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <GroupBox Grid.Row="0" Header="Text" BorderThickness="1" BorderBrush="Green" Margin="3">
-                
+            <GroupBox Grid.Row="0" Header="Add new teacher" BorderThickness="1" BorderBrush="Green" Margin="3">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition  Height="2*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Content="Full name"
+                           VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    <Label Grid.Row="1" Grid.Column="0" Content="Institute"
+                           VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    <Label Grid.Row="2" Grid.Column="0" Content="Service"
+                           VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    
+                    <TextBox Grid.Row="0" Grid.Column="1" 
+                           VerticalAlignment="Center" HorizontalAlignment="Stretch" MaxHeight="27"
+                             Margin="5,0" BorderThickness="2" BorderBrush="Green"/>
+                    <ComboBox Grid.Row="1" Grid.Column="1" 
+                           VerticalAlignment="Center" HorizontalAlignment="Stretch" MaxHeight="27"
+                             Margin="5,0" BorderThickness="2" BorderBrush="Green"/>
+                    <ComboBox Grid.Row="2" Grid.Column="1" 
+                           VerticalAlignment="Center" HorizontalAlignment="Stretch" MaxHeight="27"
+                             Margin="5,0" BorderThickness="2" BorderBrush="Green"/>
+                    <Button Grid.Column="0" Grid.Row="3" Content="Add" Margin="2"/>
+                </Grid>
             </GroupBox>
             <GroupBox Grid.Row="1" Header="Top 3" BorderThickness="1" BorderBrush="Blue" Margin="3">
                 
