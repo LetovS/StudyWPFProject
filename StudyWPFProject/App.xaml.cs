@@ -8,8 +8,10 @@ namespace StudyWPFProject
     public partial class App : Application
     {
         public static IHost? AppHost { get; private set; }
+        public bool IsDeveloper { get; set; } = true;
         public App()
         {
+            
             AppHost = Host.CreateDefaultBuilder().ConfigureServices((host, services) =>
             {
                 services.AddSingleton<MainWindow>();
