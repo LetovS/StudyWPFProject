@@ -9,5 +9,6 @@ namespace StudyWPFProject.Models
     internal class Institute
     {
         public string? Name { get; set; }
+        public override string ToString() => Name!;
     }
 }
