@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:conv="clr-namespace:StudyWPFProject.Infrastructure.Converters"
         xmlns:l="clr-namespace:StudyWPFProject"
+        xmlns:val="clr-namespace:StudyWPFProject.Infrastructure.Validators"
         xmlns:vm="clr-namespace:StudyWPFProject.ViewModels"
         mc:Ignorable="d"
         Title="{Binding Title}" Height="450" Width="800">
@@ -82,9 +83,9 @@
                            VerticalAlignment="Center" HorizontalAlignment="Left"/>
                     <Label Grid.Row="2" Grid.Column="0" Content="Service"
                            VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                    
+
                     <TextBox Grid.Row="0" Grid.Column="1" 
-                           VerticalAlignment="Center" HorizontalAlignment="Stretch" MaxHeight="27"
+                             VerticalAlignment="Center" HorizontalAlignment="Stretch" MaxHeight="27"
                              Margin="5,0" BorderThickness="2" BorderBrush="Green"
                              Text="{Binding NewTeacher.FullName, UpdateSourceTrigger=PropertyChanged}"/>
                     <ComboBox Grid.Row="1" Grid.Column="1" SelectedIndex="{Binding SelectedIndexAddNewTeacherByInstitute}"  ItemsSource="{Binding Institutes}" SelectedItem="{Binding NewTeacher.Institute, UpdateSourceTrigger=PropertyChanged}"
