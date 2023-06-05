@@ -1,10 +1,12 @@
-﻿using StudyWPFProject.Models;
+﻿using GalaSoft.MvvmLight.Command;
+using StudyWPFProject.Models;
 using StudyWPFProject.Services;
 using StudyWPFProject.ViewModels.Base;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Documents;
+using System.Windows.Input;
 
 namespace StudyWPFProject.ViewModels
 {
@@ -55,8 +57,21 @@ namespace StudyWPFProject.ViewModels
         public MainWindowViewModel()
         {
             Teachers.Add(new Teacher() { FullName = "Sergey", Institute = new Institute() { Name = "ГИ" }, Service = new Service() { Name = "Discord" } });
+
+            #region Init Commands
+
+            #endregion
+
         }
+
+        #region Commands
+        public RelayCommand AddNewTeacherCommand { get; init}
+
+        public RelayCommand GetTopServicesCommand { get; init}
+
+        #endregion
+
     }
 
-    
+
 }
