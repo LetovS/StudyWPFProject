@@ -93,7 +93,7 @@
                     <ComboBox Grid.Row="2" Grid.Column="1" SelectedIndex="{Binding SelectedIndexAddNewTeacherByService}"  ItemsSource="{Binding Services}" SelectedItem="{Binding NewTeacher.Service, UpdateSourceTrigger=PropertyChanged}"
                            VerticalAlignment="Center" HorizontalAlignment="Stretch" MaxHeight="27"
                              Margin="5,0" BorderThickness="2" BorderBrush="Green" DisplayMemberPath="Name"/>
-                    <Button Grid.Column="0" Grid.Row="3" Content="Add" Margin="2" Command="{Binding AddNewTeacherCommand}"/>
+                    <Button Grid.Column="0" Grid.Row="3" Content="Add" Margin="2" Command="{Binding AddNewTeacherCommand}" CommandParameter="{Binding NewTeacher}"/>
                 </Grid>
             </GroupBox>
             <GroupBox Grid.Row="1" Header="Top 3" BorderThickness="1" BorderBrush="Blue" Margin="3">

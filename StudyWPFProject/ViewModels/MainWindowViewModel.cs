@@ -78,13 +78,18 @@ namespace StudyWPFProject.ViewModels
         }
         private void ExecuteAddNewTeacherCommand(object obj)
         {
-            if (!Teachers.Contains(NewTeacher))
+            if (obj is Teacher teacher)
             {
-                Teachers.Add(NewTeacher);
-                NewTeacher = new Teacher();
-                SelectedIndexAddNewTeacherByInstitute = -1;
-                SelectedIndexAddNewTeacherByService = -1;
+                if (!Teachers.Contains(teacher))
+                {
+                    Teachers.Add(NewTeacher);
+                    NewTeacher = new Teacher();
+                    OnPropertyChanged(nameof(NewTeacher));
+                    SelectedIndexAddNewTeacherByInstitute = -1;
+                    SelectedIndexAddNewTeacherByService = -1;
+                }
             }
+            
         }
 
         //public RelayCommand GetTopServicesCommand { get; set => GetTop3Services(); }
