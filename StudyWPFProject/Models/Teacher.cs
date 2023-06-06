@@ -7,7 +7,7 @@ using System.Windows.Controls;
 
 namespace StudyWPFProject.Models
 {
-    internal class Teacher : ViewBase
+    internal class Teacher
     {
         public string? FullName { get; set; }
         public Institute? Institute { get; set; }

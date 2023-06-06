@@ -13,6 +13,7 @@ namespace StudyWPFProject.Models
         private string _name;
         public string? Name { get => _name; set => Set(ref _name!, value); }
         public override string ToString() => Name!;
+        //TODO При выборе в главном представлении чего либо выскакивает исключение 
         public override bool Equals(object? obj)
         {
             return this.Name == ((Service)obj!).Name;

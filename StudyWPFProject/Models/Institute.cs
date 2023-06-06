@@ -12,13 +12,13 @@ namespace StudyWPFProject.Models
         private string _name;
         public string? Name { get => _name; set => Set(ref _name!, value); }
         public override string ToString() => Name!;
-        public override bool Equals(object? obj)
-        {
-            return this.Name == ((Institute)obj!).Name;
-        }
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
+        //public override bool Equals(object? obj)
+        //{
+        //    return this.Name == ((Institute)obj!).Name;
+        //}
+        //public override int GetHashCode()
+        //{
+        //    return base.GetHashCode();
+        //}
     }
 }
