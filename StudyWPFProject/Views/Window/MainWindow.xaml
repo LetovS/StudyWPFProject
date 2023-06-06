@@ -97,7 +97,7 @@
                              Margin="5,0" BorderThickness="2" BorderBrush="Green"
                              >
                         <TextBox.Text>
-                            <Binding Path="FullName" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
+                            <Binding Path="NewTeacher.FullName" ValidatesOnExceptions="True" UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
                                     <val:ValidatorTeachersName />
                                 </Binding.ValidationRules>

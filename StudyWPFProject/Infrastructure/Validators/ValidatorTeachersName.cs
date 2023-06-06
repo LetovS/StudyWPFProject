@@ -10,7 +10,6 @@ namespace StudyWPFProject.Infrastructure.Validators
 {
     internal class ValidatorTeachersName : ValidationRule
     {
-        public string? InputString { get; set; }
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             if (value == null) return null!;
