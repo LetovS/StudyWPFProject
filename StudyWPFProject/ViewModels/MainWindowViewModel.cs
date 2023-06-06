@@ -50,6 +50,8 @@ namespace StudyWPFProject.ViewModels
             {
                 Set(ref _SelectedTeacher, value);
                 NewTeacher = new Teacher { FullName = value.FullName, Institute = value.Institute, Service = value.Service};
+                SelectedIndexAddNewTeacherByInstitute = Institutes.IndexOf(value.Institute!);
+                SelectedIndexAddNewTeacherByService = Services.IndexOf(value.Service!);
                 OnPropertyChanged(nameof(NewTeacher));
             }
         }
