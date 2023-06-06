@@ -31,7 +31,7 @@ namespace StudyWPFProject.Infrastructure.Validators
                 };
                 return ValidationResult.ValidResult;
             }           
-            catch (ArgumentException e)
+            catch (ArgumentException)
             {
                 return new ValidationResult(false, "Please enter correct data.");
             }
