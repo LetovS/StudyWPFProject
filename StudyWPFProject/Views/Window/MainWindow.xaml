@@ -104,7 +104,6 @@
                     <TextBox Grid.Row="0" Grid.Column="1" x:Name="TextBoxValid"
                              VerticalAlignment="Center" HorizontalAlignment="Stretch" MaxHeight="27"
                               BorderThickness="2" BorderBrush="Green"
-                              x:Name="TextBoxValid"
                               Margin="5 0 0 0"
                               Padding="2">                             
                         <TextBox.Text>
