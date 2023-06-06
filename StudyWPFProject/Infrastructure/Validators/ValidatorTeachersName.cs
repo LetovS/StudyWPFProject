@@ -27,7 +27,7 @@ namespace StudyWPFProject.Infrastructure.Validators
                     1 => result[0],
                     2 => string.Format("{0} {1}.", result[0], result[1]),
                     3 => string.Format("{0} {1} {2}.", result[0], result[1], result[2]),
-                    _ => throw new ArgumentException()
+                    _ => throw new ArgumentException(nameof(inputString))
                 };
                 return ValidationResult.ValidResult;
             }           
