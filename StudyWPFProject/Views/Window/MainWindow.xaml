@@ -101,9 +101,7 @@
                     <Label Grid.Row="2" Grid.Column="0" Content="Service"
                            VerticalAlignment="Center" HorizontalAlignment="Left"/>
 
-                    
-                    
-                    <TextBox Grid.Row="0" Grid.Column="1" 
+                    <TextBox Grid.Row="0" Grid.Column="1" x:Name="TextBoxValid"
                              VerticalAlignment="Center" HorizontalAlignment="Stretch" MaxHeight="27"
                               BorderThickness="2" BorderBrush="Green"
                               x:Name="TextBoxValid"
