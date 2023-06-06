@@ -14,13 +14,15 @@ namespace StudyWPFProject.Models
         public string? Name { get => _name; set => Set(ref _name!, value); }
         public override string ToString() => Name!;
         //TODO При выборе в главном представлении чего либо выскакивает исключение 
-        public override bool Equals(object? obj)
-        {
-            return this.Name == ((Service)obj!).Name;
-        }
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
+        // System.InvalidCastException: 'Unable to cast object of type 'MS.Internal.NamedObject' to type 'StudyWPFProject.Models.Service'.'
+
+        //public override bool Equals(object? obj)
+        //{
+        //    return this.Name == ((Service)obj!).Name;
+        //}
+        //public override int GetHashCode()
+        //{
+        //    return base.GetHashCode();
+        //}
     }
 }
