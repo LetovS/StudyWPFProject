@@ -82,7 +82,7 @@ namespace StudyWPFProject.ViewModels
             {
                 if (!Teachers.Contains(teacher))
                 {
-                    Teachers.Add(NewTeacher);
+                    Teachers.Add(new Teacher { FullName = NewTeacher.FullName!.GetShortName(), Institute = NewTeacher.Institute, Service = NewTeacher.Service});
                     NewTeacher = new Teacher();
                     OnPropertyChanged(nameof(NewTeacher));
                     SelectedIndexAddNewTeacherByInstitute = -1;
