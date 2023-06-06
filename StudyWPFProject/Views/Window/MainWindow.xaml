@@ -13,7 +13,16 @@
         <vm:MainWindowViewModel/>
     </Window.DataContext>
     <Window.Resources>
-        <conv:ServiceToColorConverter x:Key="ServiceToColorBackgroundConverter"/>        
+        <conv:ServiceToColorConverter x:Key="ServiceToColorBackgroundConverter"/>
+        <ControlTemplate x:Key="ValidationErrorTemplate">
+            <Border BorderBrush="Red" BorderThickness="2">
+                <Grid>
+                    <AdornedElementPlaceholder/>
+                    <TextBlock Text="{Binding [0].ErrorContent}" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="Red"
+                               FontWeight="Bold" Margin="0,0,5,0"/>
+                </Grid>
+            </Border>
+        </ControlTemplate>
     </Window.Resources>
     
     <Grid>
@@ -95,6 +104,7 @@
                     <TextBox Grid.Row="0" Grid.Column="1" 
                              VerticalAlignment="Center" HorizontalAlignment="Stretch" MaxHeight="27"
                              Margin="5,0" BorderThickness="2" BorderBrush="Green"
+                             Validation.ErrorTemplate="{StaticResource ValidationErrorTemplate}"
                              >
                         <TextBox.Text>
                             <Binding Path="NewTeacher.FullName" ValidatesOnExceptions="True" UpdateSourceTrigger="PropertyChanged">

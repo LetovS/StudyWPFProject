@@ -14,7 +14,8 @@ namespace StudyWPFProject.Infrastructure.Validators
         {
             if (value == null) return null!;
 
-            if (value is not string inputString || string.IsNullOrWhiteSpace(inputString)) return null!;
+            if (value is not string inputString) return null!;
+            
 
             var result = inputString.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
@@ -22,14 +23,19 @@ namespace StudyWPFProject.Infrastructure.Validators
             {
                 var res = result.Length switch
                 {
+                    0 => throw new ArgumentNullException(),
                     1 => result[0],
                     2 => string.Format("{0} {1}.", result[0], result[1]),
                     3 => string.Format("{0} {1} {2}.", result[0], result[1], result[2]),
-                    _ => throw new ArgumentException("Too many whitespaces in input string.")
+                    _ => throw new ArgumentException()
                 };
                 return ValidationResult.ValidResult;
             }
-            catch (Exception)
+            catch (ArgumentNullException)
+            {
+                return new ValidationResult(false, "Field can't empty");
+            }
+            catch (ArgumentException e)
             {
                 return new ValidationResult(false, "Please enter correct data.");
             }
