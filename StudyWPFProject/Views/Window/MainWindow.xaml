@@ -26,7 +26,7 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="40"/>
                 </Grid.RowDefinitions>
-                <ListView Grid.Row="0" BorderThickness="1" BorderBrush="Green" Margin="2" ItemsSource="{Binding Teachers}" SelectedItem="{Binding SelectedTeacher}">
+                <ListView Grid.Row="0" BorderThickness="1" SelectedValue="{Binding SelectedTeacher}" BorderBrush="Green" Margin="2" ItemsSource="{Binding Teachers}" SelectedItem="{Binding SelectedTeacher}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Border Margin="2"
@@ -57,7 +57,14 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <Button Grid.Row="1" Command="{Binding GetTopServicesCommand}" Content="Get top" BorderThickness="1" BorderBrush="Blue" Margin="2"/>
+                <Border  Grid.Row="1"  BorderThickness="1" BorderBrush="Blue" Margin="2">
+                    <UniformGrid Columns="2">
+                        <Button Command="{Binding GetTopServicesCommand}" Content="Get top" Margin="3,1"/>
+                        <Button Content="Change name" Command="{Binding ChangeDataOfTeacher}" Margin="3,1"/>
+                    </UniformGrid>
+                </Border>
+                
+                
             </Grid>
         </GroupBox>
         <Grid Grid.Column="1">

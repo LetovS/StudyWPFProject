@@ -42,6 +42,18 @@ namespace StudyWPFProject.ViewModels
         private int _SelectedIndexAddNewTeacherByService = -1;
         public int SelectedIndexAddNewTeacherByService { get => _SelectedIndexAddNewTeacherByService; set => Set(ref _SelectedIndexAddNewTeacherByService, value); }
 
+        private Teacher _SelectedTeacher;
+        public Teacher SelectedTeacher
+        {
+            get => _SelectedTeacher;
+            set
+            {
+                Set(ref _SelectedTeacher, value);
+                NewTeacher = new Teacher { FullName = value.FullName, Institute = value.Institute, Service = value.Service};
+                OnPropertyChanged(nameof(NewTeacher));
+            }
+        }
+
         public Teacher NewTeacher { get; set; } = new Teacher();
         private void GetTop3Services()
         {
