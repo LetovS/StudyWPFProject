@@ -57,6 +57,10 @@ namespace StudyWPFProject.ViewModels
         }
 
         public Teacher NewTeacher { get; set; } = new Teacher();
+
+
+
+
         private void GetTop3Services()
         {
             TopServices = new List<TopServiceItem>(
