@@ -13,8 +13,9 @@
         <vm:MainWindowViewModel/>
     </Window.DataContext>
     <Window.Resources>
-        <conv:ServiceToColorConverter x:Key="ServiceToColorBackgroundConverter"/>
+        <conv:ServiceToColorConverter x:Key="ServiceToColorBackgroundConverter"/>        
     </Window.Resources>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -94,7 +95,15 @@
                     <TextBox Grid.Row="0" Grid.Column="1" 
                              VerticalAlignment="Center" HorizontalAlignment="Stretch" MaxHeight="27"
                              Margin="5,0" BorderThickness="2" BorderBrush="Green"
-                             Text="{Binding NewTeacher.FullName, UpdateSourceTrigger=PropertyChanged}"/>
+                             >
+                        <TextBox.Text>
+                            <Binding Path="FullName" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <val:ValidatorTeachersName />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
                     <ComboBox Grid.Row="1" Grid.Column="1" SelectedIndex="{Binding SelectedIndexAddNewTeacherByInstitute}"  ItemsSource="{Binding Institutes}" SelectedItem="{Binding NewTeacher.Institute, UpdateSourceTrigger=PropertyChanged}"
                            VerticalAlignment="Center" HorizontalAlignment="Stretch" MaxHeight="27"
                              Margin="5,0" BorderThickness="2" BorderBrush="Green" DisplayMemberPath="Name"/>
