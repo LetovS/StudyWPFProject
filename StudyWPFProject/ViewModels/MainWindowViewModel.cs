@@ -45,7 +45,7 @@ namespace StudyWPFProject.ViewModels
         private Teacher _SelectedTeacher;
         public Teacher SelectedTeacher
         {
-            get => _SelectedTeacher;
+            get => _SelectedTeacher!;
             set
             {
                 Set(ref _SelectedTeacher, value);
@@ -75,12 +75,10 @@ namespace StudyWPFProject.ViewModels
         public MainWindowViewModel()
         {
             Teachers.Add(new Teacher() { FullName = "Sergey", Institute = new Institute() { Name = "ГИ" }, Service = new Service() { Name = "Discord" } });
-
             #region Init Commands
             AddNewTeacherCommand = new LambdaCommand(ExecuteAddNewTeacherCommand, CanExecuteAddNewTeacherCommand);
             GetTopServicesCommand = new LambdaCommand(ExecuteGetTopServicesCommand, CanExecuteGetTopServicesCommand);
             #endregion
-
         }
 
         #region Commands
