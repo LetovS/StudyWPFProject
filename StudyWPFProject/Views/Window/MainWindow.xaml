@@ -3,13 +3,18 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:conv="clr-namespace:StudyWPFProject.Infrastructure.Converters"
         xmlns:l="clr-namespace:StudyWPFProject"
+        xmlns:val="clr-namespace:StudyWPFProject.Infrastructure.Validators"
         xmlns:vm="clr-namespace:StudyWPFProject.ViewModels"
         mc:Ignorable="d"
         Title="{Binding Title}" Height="450" Width="800">
     <Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>
+    <Window.Resources>
+        <conv:ServiceToColorConverter x:Key="ServiceToColorBackgroundConverter"/>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -21,7 +26,7 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="40"/>
                 </Grid.RowDefinitions>
-                <ListView Grid.Row="0" BorderThickness="1" BorderBrush="Green" Margin="2">
+                <ListView Grid.Row="0" BorderThickness="1" SelectedValue="{Binding SelectedTeacher}" BorderBrush="Green" Margin="2" ItemsSource="{Binding Teachers}" SelectedItem="{Binding SelectedTeacher}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Border Margin="2"
@@ -52,7 +57,14 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <Button Grid.Row="1" Content="Get top" BorderThickness="1" BorderBrush="Blue" Margin="2"/>
+                <Border  Grid.Row="1"  BorderThickness="1" BorderBrush="Blue" Margin="2">
+                    <UniformGrid Columns="2">
+                        <Button Command="{Binding GetTopServicesCommand}" Content="Get top" Margin="3,1"/>
+                        <Button Content="Change name" Command="{Binding ChangeDataOfTeacher}" Margin="3,1"/>
+                    </UniformGrid>
+                </Border>
+                
+                
             </Grid>
         </GroupBox>
         <Grid Grid.Column="1">
@@ -78,21 +90,41 @@
                            VerticalAlignment="Center" HorizontalAlignment="Left"/>
                     <Label Grid.Row="2" Grid.Column="0" Content="Service"
                            VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                    
+
                     <TextBox Grid.Row="0" Grid.Column="1" 
+                             VerticalAlignment="Center" HorizontalAlignment="Stretch" MaxHeight="27"
+                             Margin="5,0" BorderThickness="2" BorderBrush="Green"
+                             Text="{Binding NewTeacher.FullName, UpdateSourceTrigger=PropertyChanged}"/>
+                    <ComboBox Grid.Row="1" Grid.Column="1" SelectedIndex="{Binding SelectedIndexAddNewTeacherByInstitute}"  ItemsSource="{Binding Institutes}" SelectedItem="{Binding NewTeacher.Institute, UpdateSourceTrigger=PropertyChanged}"
                            VerticalAlignment="Center" HorizontalAlignment="Stretch" MaxHeight="27"
-                             Margin="5,0" BorderThickness="2" BorderBrush="Green"/>
-                    <ComboBox Grid.Row="1" Grid.Column="1" 
+                             Margin="5,0" BorderThickness="2" BorderBrush="Green" DisplayMemberPath="Name"/>
+                    <ComboBox Grid.Row="2" Grid.Column="1" SelectedIndex="{Binding SelectedIndexAddNewTeacherByService}"  ItemsSource="{Binding Services}" SelectedItem="{Binding NewTeacher.Service, UpdateSourceTrigger=PropertyChanged}"
                            VerticalAlignment="Center" HorizontalAlignment="Stretch" MaxHeight="27"
-                             Margin="5,0" BorderThickness="2" BorderBrush="Green"/>
-                    <ComboBox Grid.Row="2" Grid.Column="1" 
-                           VerticalAlignment="Center" HorizontalAlignment="Stretch" MaxHeight="27"
-                             Margin="5,0" BorderThickness="2" BorderBrush="Green"/>
-                    <Button Grid.Column="0" Grid.Row="3" Content="Add" Margin="2"/>
+                             Margin="5,0" BorderThickness="2" BorderBrush="Green" DisplayMemberPath="Name"/>
+                    <Button Grid.Column="0" Grid.Row="3" Content="Add" Margin="2" Command="{Binding AddNewTeacherCommand}" CommandParameter="{Binding NewTeacher}"/>
                 </Grid>
             </GroupBox>
             <GroupBox Grid.Row="1" Header="Top 3" BorderThickness="1" BorderBrush="Blue" Margin="3">
-                
+                <ListView ItemsSource="{Binding TopServices}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderThickness="2" BorderBrush="Green" HorizontalAlignment="Stretch">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Service name: "/>
+                                    <TextBlock Grid.Column="1" Text="{Binding ServiceName}" HorizontalAlignment="Center" FontWeight="Bold"/>
+                                    <TextBlock Grid.Column="2" Text=" users count: "/>
+                                    <TextBlock Grid.Column="3" Text="{Binding CountOfUsing}" HorizontalAlignment="Center" FontWeight="Bold"/>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </GroupBox>
         </Grid>
     </Grid>
