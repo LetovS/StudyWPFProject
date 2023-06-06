@@ -18,7 +18,7 @@
             <Border BorderBrush="Red" BorderThickness="2">
                 <Grid>
                     <AdornedElementPlaceholder/>
-                    <TextBlock Text="{Binding [0].ErrorContent}" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="Red"
+                    <TextBlock Text="{Binding CurrentItem.ErrorContent}" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="Red"
                                Margin="0,0,5,0"/>
                 </Grid>
             </Border>
@@ -101,13 +101,17 @@
                     <Label Grid.Row="2" Grid.Column="0" Content="Service"
                            VerticalAlignment="Center" HorizontalAlignment="Left"/>
 
+                    
+                    
                     <TextBox Grid.Row="0" Grid.Column="1" 
                              VerticalAlignment="Center" HorizontalAlignment="Stretch" MaxHeight="27"
-                             Margin="5,0" BorderThickness="2" BorderBrush="Green"
-                             Validation.ErrorTemplate="{StaticResource ValidationErrorTemplate}"
-                             >
+                              BorderThickness="2" BorderBrush="Green"
+                             
+                             x:Name="TextBoxValid"
+                                Margin="5 0 0 0"
+                                Padding="2">                             
                         <TextBox.Text>
-                            <Binding Path="NewTeacher.FullName" ValidatesOnExceptions="True" UpdateSourceTrigger="PropertyChanged">
+                            <Binding Path="NewTeacher.FullName" UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
                                     <val:ValidatorTeachersName />
                                 </Binding.ValidationRules>
@@ -120,7 +124,22 @@
                     <ComboBox Grid.Row="2" Grid.Column="1" SelectedIndex="{Binding SelectedIndexAddNewTeacherByService}"  ItemsSource="{Binding Services}" SelectedItem="{Binding NewTeacher.Service, UpdateSourceTrigger=PropertyChanged}"
                            VerticalAlignment="Center" HorizontalAlignment="Stretch" MaxHeight="27"
                              Margin="5,0" BorderThickness="2" BorderBrush="Green" DisplayMemberPath="Name"/>
-                    <Button Grid.Column="0" Grid.Row="3" Content="Add" Margin="2" Command="{Binding AddNewTeacherCommand}" CommandParameter="{Binding NewTeacher}"/>
+                    <Button Grid.Column="0"
+                            Grid.Row="3"                            
+                            Content="Add" 
+                            Margin="5" 
+                            Command="{Binding AddNewTeacherCommand}" 
+                            CommandParameter="{Binding NewTeacher}">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=TextBoxValid, Path=(Validation.HasError)}" Value="True">
+                                        <Setter Property="IsEnabled" Value="False" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
                 </Grid>
             </GroupBox>
             <GroupBox Grid.Row="1" Header="Top 3" BorderThickness="1" BorderBrush="Blue" Margin="3">
