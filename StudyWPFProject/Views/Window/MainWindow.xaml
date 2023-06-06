@@ -114,11 +114,18 @@
                             </Binding>
                         </TextBox.Text>
                     </TextBox>
-                    <ComboBox Grid.Row="1" Grid.Column="1" SelectedIndex="{Binding SelectedIndexAddNewTeacherByInstitute}"  ItemsSource="{Binding Institutes}" SelectedItem="{Binding NewTeacher.Institute, UpdateSourceTrigger=PropertyChanged}"
-                           VerticalAlignment="Center" HorizontalAlignment="Stretch" MaxHeight="27"
-                             Margin="5,0" BorderThickness="2" BorderBrush="Green" DisplayMemberPath="Name"/>
-                    <ComboBox Grid.Row="2" Grid.Column="1" SelectedIndex="{Binding SelectedIndexAddNewTeacherByService}"  ItemsSource="{Binding Services}" SelectedItem="{Binding NewTeacher.Service, UpdateSourceTrigger=PropertyChanged}"
-                           VerticalAlignment="Center" HorizontalAlignment="Stretch" MaxHeight="27"
+                    <ComboBox Grid.Row="1" Grid.Column="1" 
+                                SelectedIndex="{Binding SelectedIndexAddNewTeacherByInstitute}" 
+                                ItemsSource="{Binding Institutes}" 
+                                SelectedItem="{Binding NewTeacher.Institute, UpdateSourceTrigger=PropertyChanged}"
+                                VerticalAlignment="Center" HorizontalAlignment="Stretch" MaxHeight="27"
+                                Margin="5,0" BorderThickness="2" BorderBrush="Green" DisplayMemberPath="Name"/>
+                    <ComboBox Grid.Row="2"
+                              Grid.Column="1"
+                              SelectedIndex="{Binding SelectedIndexAddNewTeacherByService}"
+                              ItemsSource="{Binding Services}"
+                              SelectedItem="{Binding NewTeacher.Service, UpdateSourceTrigger=PropertyChanged}"
+                              VerticalAlignment="Center" HorizontalAlignment="Stretch" MaxHeight="27"
                              Margin="5,0" BorderThickness="2" BorderBrush="Green" DisplayMemberPath="Name"/>
                     <Button Grid.Column="0"
                             Grid.Row="3"                            
