@@ -16,9 +16,11 @@ namespace StudyWPFProject.Infrastructure.Validators
 
             if (value is not string inputString) return null!;
             
+             
 
             var result = inputString.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-
+            var check_numbers = result.Where(x => int.TryParse(x, out int b)).Select(x => x).ToArray();
+            if (check_numbers.Length > 0) return new ValidationResult(false, "Не должно быть цифер.");
             try
             {
                 var res = result.Length switch
