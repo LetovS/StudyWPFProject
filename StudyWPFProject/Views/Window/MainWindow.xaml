@@ -14,7 +14,17 @@
     </Window.DataContext>
     <Window.Resources>
         <conv:ServiceToColorConverter x:Key="ServiceToColorBackgroundConverter"/>
+        <ControlTemplate x:Key="ValidationErrorTemplate">
+            <Border BorderBrush="Red" BorderThickness="2">
+                <Grid>
+                    <AdornedElementPlaceholder/>
+                    <TextBlock Text="{Binding CurrentItem.ErrorContent}" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="Red"
+                               Margin="0,0,5,0"/>
+                </Grid>
+            </Border>
+        </ControlTemplate>
     </Window.Resources>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -91,10 +101,20 @@
                     <Label Grid.Row="2" Grid.Column="0" Content="Service"
                            VerticalAlignment="Center" HorizontalAlignment="Left"/>
 
-                    <TextBox Grid.Row="0" Grid.Column="1" x:Name="IsValidError"
+                    <TextBox Grid.Row="0" Grid.Column="1" x:Name="TextBoxValid"
                              VerticalAlignment="Center" HorizontalAlignment="Stretch" MaxHeight="27"
-                             Margin="5,0" BorderThickness="2" BorderBrush="Green"
-                             Text="{Binding NewTeacher.FullName, UpdateSourceTrigger=PropertyChanged}"/>
+                              BorderThickness="2" BorderBrush="Green"
+                              x:Name="TextBoxValid"
+                              Margin="5 0 0 0"
+                              Padding="2">                             
+                        <TextBox.Text>
+                            <Binding Path="NewTeacher.FullName" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <val:ValidatorTeachersName />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
                     <ComboBox Grid.Row="1" Grid.Column="1" SelectedIndex="{Binding SelectedIndexAddNewTeacherByInstitute}"  ItemsSource="{Binding Institutes}" SelectedItem="{Binding NewTeacher.Institute, UpdateSourceTrigger=PropertyChanged}"
                            VerticalAlignment="Center" HorizontalAlignment="Stretch" MaxHeight="27"
                              Margin="5,0" BorderThickness="2" BorderBrush="Green" DisplayMemberPath="Name"/>
@@ -102,16 +122,16 @@
                            VerticalAlignment="Center" HorizontalAlignment="Stretch" MaxHeight="27"
                              Margin="5,0" BorderThickness="2" BorderBrush="Green" DisplayMemberPath="Name"/>
                     <Button Grid.Column="0"
-                            Grid.Row="3"
-                            Content="Add"
-                            Margin="2"
-                            Command="{Binding AddNewTeacherCommand}"
+                            Grid.Row="3"                            
+                            Content="Add" 
+                            Margin="5" 
+                            Command="{Binding AddNewTeacherCommand}" 
                             CommandParameter="{Binding NewTeacher}">
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding ElementName=IsValidError, Path=(Validation.HasError)}" Value="True">
-                                        <Setter Property="IsEnabled" Value="False"/>
+                                    <DataTrigger Binding="{Binding ElementName=TextBoxValid, Path=(Validation.HasError)}" Value="True">
+                                        <Setter Property="IsEnabled" Value="False" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
